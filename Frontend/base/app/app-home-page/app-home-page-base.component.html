@@ -1,0 +1,38 @@
+<div class="home-page"
+    [ngClass]="{'l-p-background':(tiles.data?.properties?.backgroundImage?.type == 'icon' || tiles.data?.properties?.backgroundImage?.type == 'uploaded')}"
+    [ngStyle]="getStyles()">
+    <div class="l-p-content" [ngClass]="{'h-100':tiles.children.length <= (tilesPerRow * 2)}" *ngIf="tiles?.children">
+        <div class="row m-0">
+            <a class="m-4 p-0 cards" *ngFor="let item of tiles.children"
+                [ngClass]="{'tile-bg-image-semi-transparent':tiles.data?.properties.tileType == 'type_3', 'cursor-pointer':tiles.data?.properties.tileType != 'type_1'}"
+                [style.width]="tileWidth"
+                [attr.href]="(tiles.data?.properties.tileType == 'type_1' && !isMobile) ? null : item.data?.properties?.page?.url ? utilBase.getPageUrl(item.data?.properties?.page?.url) : ((item.data?.properties?.link || item.data?.properties?.url) ? (item.data?.properties?.link || item.data?.properties?.url) : null)"
+                [attr.target]="(tiles.data?.properties.tileType == 'type_1' && !isMobile) ? null : item.data?.properties?.page?.url ? null : ( (item.data?.properties?.link || item.data?.properties?.url) ? '_blank' : null)">
+                <div class="c-image" *ngIf="item.data.properties.image?.type == 'uploaded'"><img
+                        [src]="getImageUrl(item)"
+                        [alt]="item?.data?.properties?.label ? item?.data?.properties?.label : 'Tile'">
+                </div>
+                <div class="c-image d-flex justify-content-center pt-4"
+                    *ngIf="item.data.properties.image?.type == 'icon'">
+                    <i class="fa {{item.data.properties.image?.icon.value}} icon"
+                        [ngStyle]="{'font-size':item.data.properties.image?.iconSize,'color':item.data.properties.image?.iconColor}"></i>
+                </div>
+                <div class="c-title p-3 px-4 mt-auto"
+                    [ngClass]="{'text-left' : tiles.data?.properties.tileType == 'type_1' , 'text-center' : tiles.data?.properties.tileType != 'type_1', 'c-title-3' : tiles.data?.properties.tileType == 'type_3'}">
+                    <span [innerHTML]="getSanitizedContent(item.data.properties.label)"></span>
+                </div>
+                <div class="c-description p-3 px-4" *ngIf="tiles.data?.properties.tileType != 'type_3'">
+                    <span>{{item.data.properties.description}}</span>
+                </div>
+                <div class="p-3 px-4 pb-4 d-none d-md-block" *ngIf="tiles.data?.properties.tileType == 'type_1'">
+                    <a class="l-c-button"
+                        [attr.href]="item.data?.properties?.page?.url ? utilBase.getPageUrl(item.data?.properties?.page?.url) : ((item.data?.properties?.link || item.data?.properties?.url) ? (item.data?.properties?.link || item.data?.properties?.url) : null)"
+                        [attr.target]="item.data?.properties?.page?.url ? null : ( (item.data?.properties?.link || item.data?.properties?.url) ? '_blank' : null)">
+                        <span>{{'GET_STARTED' | translate}}</span>
+                        <span class="pl-3"><i class="fa fa-arrow-right-long"></i></span>
+                    </a>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

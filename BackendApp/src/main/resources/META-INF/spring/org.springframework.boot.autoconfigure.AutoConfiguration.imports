@@ -1,0 +1,3 @@
+com.githubrappittest.testappgithub.config.ApplicationRepositoriesAutoConfiguration
+com.githubrappittest.testappgithub.config.ApplicationTransactionManagersAutoConfig
+com.githubrappittest.testappgithub.config.ApplicationProvidersAutoConfiguration

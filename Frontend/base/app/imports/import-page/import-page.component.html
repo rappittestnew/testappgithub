@@ -1,0 +1,91 @@
+<div class="detail imports-page ">
+    <div class="import-popup-container">
+        <div class="ev-detail-view" id="detail-view-container">
+            <div>
+                <div class="flex align-items-center justify-content-center form-container">
+
+                    <form class="ev-form " [formGroup]="importGroup" #detailForm>
+                        <div *ngIf="!fromListPage">
+                            <div class="field-row required">
+                                <label class="col-form-label">Select Table</label>
+                                <p-dropdown [options]="this.currentImpConfig" styleClass="dropdown"
+                                    optionLabel="tableName" (onChange)="selectedTable($event)"
+                                    placeholder="Select Table Type" value="tableName" appendTo="body" [filter]="true" #tableDropdown>
+                                </p-dropdown>
+                            </div>
+                        </div>
+
+                        <div class="field-row required" *ngIf="fromListPage || this.selectedtablename">
+                            <label class="col-form-label">Template Type</label>
+                            <p-dropdown [options]="ImportConfig" styleClass="dropdown" optionLabel="name"
+                                [autoDisplayFirst]="true" (onChange)="selectedImportType($event)" value="name"
+                                appendTo="body" [filter]="true" #templateDropdown>
+                            </p-dropdown>
+                        </div>
+
+                        <div class="field-row required">
+                            <label *ngIf="this.selectedValues.selectedImportFileType !=undefined"
+                                class="col-form-label">File Type</label>
+                            <div class="filetype-radiobtn-container">
+                                <div *ngFor="let fileType of selectedValues.selectedImportFileType"
+                                    class="filetype-checkbox">
+                                    <p-radioButton (click)="selectedFileType(fileType)" name="FileType"
+                                        [value]="fileType" formControlName="FileType"></p-radioButton>
+                                    <label>{{fileTypeMap.get(fileType)}}</label>
+                                </div>
+                                <div class="download-link"
+                                    *ngIf="this.selectedValues.selectedType!= '' && enableDownloadLink"><a
+                                        href="{{templateDownloadLink}}">Download Template</a></div>
+                            </div>
+                        </div>
+                        <div>
+                            <span *ngIf="selectedValues.selectedType === 'csv'">
+                                <div class="field-row required">
+                                    <label class="col-form-label attachment-label">Upload CSV File</label>
+                                    <p-fileUpload #csvRef accept=".csv" maxFileSize="10000000"
+                                        [showUploadButton]="false" [showCancelButton]="false"
+                                        styleClass="form-upload-control file-upload" [name]="Exe"
+                                        (onSelect)="onSelectattachment($event,csvRef)" [fileLimit]="1">
+                                    </p-fileUpload>
+                                </div>
+                            </span>
+                            <span *ngIf="selectedValues.selectedType === 'excel'">
+                                <div class="field-row required">
+                                    <label class="col-form-label attachment-label">Upload Excel File</label>
+                                    <p-fileUpload #excelRef accept=".xlsx" maxFileSize="10000000"
+                                        [showUploadButton]="false" [showCancelButton]="false"
+                                        styleClass="form-upload-control file-upload" [name]="Exe"
+                                        (onSelect)="onSelectattachment($event,excelRef)" [fileLimit]="1">
+
+
+                                    </p-fileUpload>
+                                </div>
+                            </span>
+                        </div>
+
+                        <div *ngIf="dateformat && dateformat.length > 0" class="field-row">
+                            <label class="col-form-label">Date Format</label>
+                            <p-dropdown [options]="dateformat" styleClass="dropdown" formControlName="dateFormat"
+                                placeholder="Choose a Format"></p-dropdown>
+                        </div>
+                        <div *ngIf="numberformat && numberformat.length > 0" class="field-row">
+                            <label class="col-form-label">Number Format</label>
+                            <p-dropdown [options]="numberformat" styleClass="dropdown" formControlName="numberFormat"
+                                placeholder="Choose a Format" optionLabel="displayLabel">
+                            </p-dropdown>
+                        </div>
+                        <div *ngIf="datetimeformat && datetimeformat.length > 0" class="field-row">
+                            <label class="col-form-label">Date & Time Format</label>
+                            <p-dropdown [options]="datetimeformat" styleClass="dropdown"
+                                formControlName="dateTimeFormat" placeholder="Choose a Format"></p-dropdown>
+                        </div>
+                    </form>
+                    <div class="footer">
+                        <p-button icon="pi pi-check" class="import-btn" type="submit" (onClick)="initiateImport()"
+                            label="Start Import" [disabled]="importBtndisabled"></p-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,96 @@
+<div class="detail client-mapping-detail admin-popup">
+
+    <div class="ev-detail-view" id="detail-view-container">
+        <button type="button" class="p-dialog-header-icon p-dialog-header-maximize p-link" (click)="cancel()" >
+            &times;
+          </button>
+        <div class="flex align-items-center justify-content-center form-container">
+            <form class="ev-form " [formGroup]="ClientMappingFormControls" #detailForm>
+                <div class="row form-body">
+                    <div class=" vg-col-2">
+                        <div class="form-col" id="producer">
+                            <div class="field-row">
+                                <label for="producer" class="col-form-label producer-label"
+                                    [textContent]="'FROM_APP'|translate"></label>
+                                <input type="text" pInputText class="form-control" formControlName="producer"
+                                    readonly="true" [disabled]="true">
+                            </div>
+                        </div>
+
+                        <div class="form-col" id="consumer">
+                            <div class="field-row">
+                                <label for="consumer" class="col-form-label consumer-label"
+                                    [textContent]="'TO_APP'|translate"></label>
+                                <input type="text" pInputText class="form-control" formControlName="consumer"
+                                    readonly="true" [disabled]="true">
+                            </div>
+                        </div>
+
+                        <div class="form-col" id="userContextRequired" *ngIf="currentDefaultValues.authenticationMode != 'OAUTH2'">
+                            <div class="field-row">
+                                <label for="userContextRequired" class="col-form-label userContextRequired-label"
+                                    [textContent]=" 'USER_CONTEXT_REQUIRED'|translate "></label>
+                                <input type="text" pInputText class="form-control" formControlName="userContextRequired"
+                                    readonly="true" [disabled]="true">
+                            </div>
+                        </div>
+                        <div class="form-col" id="authenticationMode">
+                            <div class="field-row">
+                                <label for="authenticationMode" class="col-form-label authenticationMode-label"
+                                    [textContent]="'AUTHENTICATION_MODE' | translate"></label>
+                                <p-dropdown 
+                                    [options]="formFieldConfig.authenticationMode?.options"
+                                    formControlName="authenticationMode"
+                                    readonly="true"
+                                    [disabled]="false">
+                                    <ng-template let-item pTemplate="item">
+                                        {{ item.label | translate }}
+                                    </ng-template>
+                                    <ng-template let-selectedItem pTemplate="selectedItem">
+                                        {{ selectedItem.label | translate }}
+                                    </ng-template>
+                                </p-dropdown>
+                            </div>
+                        </div>
+                        <div class="form-col" id="saEmail" *ngIf="currentDefaultValues.authenticationMode != 'OAUTH2'">
+                            <div class="field-row" class="required">
+                                <label for="saEmail" class="col-form-label saEmail-label "
+                                    [textContent]="'SERVICE_ACCOUNT_MAIL'|translate"></label>
+                                <input type="text" pInputText class="form-control" formControlName="saEmail"
+                                    placeholder="Enter mail">
+                            </div>
+                        </div>
+                        <div class="form-col" id="accessTokenExpiry">
+                            <div class="field-row" class="required">
+                              <label for="accessTokenExpiry" class="col-form-label accessTokenExpiry-label"
+                                     [textContent]="'ACCESS_TOKEN_EXPIRATION_TIME_OPENPARAN_IN_MINUTES_CLOSEPARAN'|translate"></label>
+                              <input type="number" pInputText class="form-control" formControlName="accessTokenExpiry"
+                                     placeholder="Enter Expiration Time (in minutes)" min="1" max="600"
+                                     (input)="validateDigits($event)" maxlength="5">
+                            </div>
+                          </div>
+                        <div class="form-col" id="additionalInfo">
+                            <div class="field-row">
+                                <label for="additionalInfo" class="col-form-label additionalInfo-label "
+                                    [textContent]="'ADDITIONAL_INFO'|translate"></label>
+                                    <textarea
+                                    class="form-control"
+                                    rows="10"
+                                    columns="50"
+                                    name="additionalInfo"
+                                    formControlName="additionalInfo"
+                                    placeholder="Enter additional Info JSON here..."
+                                  ></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="footer">
+            <p-button icon="pi pi-check" class="import-btn" type="submit" (onClick)="updateValues()" label="Save">
+            </p-button>
+        </div>
+    </div>
+</div>

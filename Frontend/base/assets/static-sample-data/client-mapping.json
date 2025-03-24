@@ -1,0 +1,26 @@
+[
+  {
+    "producer": "Application1",
+    "consumer": "Prototype Application1",
+    "mail": "app1@gmail.com",
+    "userContextRequired": false,
+    "sid": "app1",
+    "authenticationMode": "USER"
+  },
+  {
+    "producer": "Application2",
+    "consumer": "Prototype Application",
+    "mail": "app2@gmail.com",
+    "userContextRequired": true,
+    "sid": "app2",
+    "authenticationMode": "SERVICE_ACCOUNT"
+  },
+  {
+    "producer": "Application3",
+    "consumer": "Prototype Application3",
+    "mail": "app3@gmail.com",
+    "userContextRequired": true,
+    "sid": "app3",
+    "authenticationMode": "SERVICE_ACCOUNT"
+  }
+]
