@@ -1,0 +1,18 @@
+name: Verify Secret
+
+on:
+  workflow_dispatch:
+
+jobs:
+  verify-secret:
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: Check if the secret matches the expected value
+        run: |
+          echo "${{ secrets.PRODUCTION_VAR }}"
+          if [ "${{ secrets.PRODUCTION_VAR }}" = "dev" ]; then
+            echo "Secret is correct!"
+          else
+            echo "Secret is wrong!"
+          fi
