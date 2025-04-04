@@ -11,7 +11,7 @@ jobs:
       - name: Check if the secret matches the expected value
         run: |
           echo "${{ secrets.PRODUCTION_VAR }}"
-          if [ "${{ secrets.PRODUCTION_VAR }}" = "dev" ]; then
+          if [ "${{ secrets.PRODUCTION_VAR }}" = "devvv" ]; then
             echo "Secret is correct!"
           else
             echo "Secret is wrong!"
